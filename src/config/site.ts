@@ -9,4 +9,5 @@ export const siteConfig: SiteConfig = {
     twitter: "https://github.com/xbeowulf",
     github: "https://github.com/codegeet/codegeet",
   },
+  ogImage: ""
 }
