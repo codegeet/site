@@ -8,6 +8,5 @@ export const siteConfig: SiteConfig = {
   links: {
     twitter: "https://github.com/xbeowulf",
     github: "https://github.com/codegeet/codegeet",
-  },
-  ogImage: ""
+  }
 }
