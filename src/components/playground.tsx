@@ -1,7 +1,8 @@
-"use client";
+"use client"
 
 import { Editor, Monaco, OnMount } from "@monaco-editor/react";
 import { editor as MonacoEditorType } from 'monaco-editor';
+
 import { Button } from "@/components/ui/button"
 import {
     Select,
@@ -60,11 +61,13 @@ interface PlaygroundProps {
 
 const Playground = () => {
 
-    const [editor, setEditor] = useState<MonacoEditorType.IStandaloneCodeEditor>();
+    const [editorInstance, setEditorInstance] = useState<MonacoEditorType.IStandaloneCodeEditor>();
+    const [monacoInstance, setMonacoInstance] = useState<Monaco | null>(null);
+
     const [language, setLanguage] = useState("java");
     const [code, setCode] = useState<string>(languages[language].code);
 
-    const { theme } = useTheme();
+    const { resolvedTheme, systemTheme } = useTheme();
 
     const handleLanguageChange = (value: string) => {
         setLanguage(value);
@@ -72,31 +75,34 @@ const Playground = () => {
     };
 
 
+
     const handleEditorDidMount: OnMount = (editor, monaco) => {
-        
-        const editorTheme = theme === 'dark' ? 'vs-dark' : 'vs';
 
-        monaco.editor.defineTheme('myCustomTheme', {
-            base: theme === 'dark' ? 'vs-dark' : 'vs',
-            inherit: true,
-            rules: [],
-            colors: {
-                'editor.background': (theme === 'dark' ? '#030711' : '#FFFFFF') ,
-            }
-        });
-
-        // Set the custom theme to the editor
-        monaco.editor.setTheme('myCustomTheme');
-
-        setEditor(editor);
+        setEditorInstance(editor);
+        setMonacoInstance(monaco);
     };
 
     useEffect(() => {
-        if (editor && language) {
-            MonacoEditorType.setModelLanguage(editor.getModel()!, language);
-            editor.setValue(languages[language].code);
+        if (editorInstance && language) {
+            monacoInstance?.editor.setModelLanguage(editorInstance.getModel()!, language);
+            editorInstance.setValue(languages[language].code);
         }
-    }, [language, editor]);
+    }, [language, editorInstance]);
+
+    useEffect(() => {
+        if (monacoInstance && editorInstance && resolvedTheme) {
+            const editorTheme = resolvedTheme === 'dark' ? 'vs-dark' : 'vs';
+            monacoInstance.editor.defineTheme('myCustomTheme', {
+                base: editorTheme,
+                inherit: true,
+                rules: [],
+                colors: {
+                    'editor.background': (resolvedTheme === 'dark' ? '#030711' : '#FFFFFF'),
+                }
+            });
+            monacoInstance.editor.setTheme('myCustomTheme');
+        }
+    }, [resolvedTheme, monacoInstance, editorInstance]);
 
     return (<>
         <div className="flex items-center space-x-4">
@@ -108,7 +114,7 @@ const Playground = () => {
                     <SelectGroup>
                         <SelectLabel>Languages</SelectLabel>
                         {Object.keys(languages).map((language) => (
-                            <SelectItem value={language}>{language.charAt(0).toUpperCase() + language.slice(1)}</SelectItem>
+                            <SelectItem key={language} value={language}>{language.charAt(0).toUpperCase() + language.slice(1)}</SelectItem>
                         ))}
                     </SelectGroup>
                 </SelectContent>

@@ -6,7 +6,6 @@ export const siteConfig: SiteConfig = {
     "Open source code execution platform.",
   url: "https://codegeet.io",
   links: {
-    twitter: "https://github.com/xbeowulf",
     github: "https://github.com/codegeet/codegeet",
   }
 }

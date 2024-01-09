@@ -21,6 +21,7 @@ interface RootLayoutProps {
 }
 
 export const metadata = {
+  metadataBase: new URL('https://codegeet.io'),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
