@@ -36,10 +36,6 @@ export const metadata = {
     },
   ],
   creator: "Vladimir Prudnikov",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -52,7 +48,11 @@ export const metadata = {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
-  }
+  },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ]
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
