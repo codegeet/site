@@ -2,8 +2,6 @@
 
 import { Editor, Monaco, OnMount } from "@monaco-editor/react";
 import { editor as MonacoEditorType } from 'monaco-editor';
-import * as monaco from 'monaco-editor';
-
 import { Button } from "@/components/ui/button"
 import {
     Select,

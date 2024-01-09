@@ -1,14 +1,4 @@
-import { Button } from "@/components/ui/button"
 import Playground from "@/components/playground"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 
 export const metadata = {
   title: "Live Demo",
@@ -38,7 +28,7 @@ export default function DemoPage() {
           Live Demo
         </h2>
         <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-          Something about supported languages.
+          Here you can try Codegeet platform live.
         </p>
 
         <div className="grid w-full items-start gap-10 rounded-lg border p-6">
