@@ -106,7 +106,7 @@ const Playground = () => {
 
     return (<>
         <div className="flex items-center space-x-4">
-            <Select onValueChange={handleLanguageChange}>
+            <Select onValueChange={handleLanguageChange} defaultValue={language}>
                 <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Select a language" />
                 </SelectTrigger>
