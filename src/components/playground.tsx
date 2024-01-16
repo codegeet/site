@@ -150,7 +150,7 @@ const Playground = () => {
     }, [resolvedTheme, monacoInstance, editorInstance]);
 
     return (<>
-        <div className="grid w-full items-start gap-10 rounded-lg border p-6">
+        <div className=" w-full items-start gap-10 rounded-lg border p-6">
 
             <div className="flex items-center space-x-4">
                 <Select onValueChange={handleLanguageChange} defaultValue={language}>
@@ -169,9 +169,9 @@ const Playground = () => {
                 <Button className="flex w-[180px]" onClick={makeApiCall}>Execute</Button>
 
             </div>
-            <div className="items-center space-x-4 h-[40vh]">
+            <div className=" h-[32vh] pt-8">
                 <Editor
-                    height="40vh"
+                    height="32vh"
                     defaultLanguage="javascript"
                     defaultValue={languages[language].code}
 
@@ -190,7 +190,7 @@ const Playground = () => {
         </div>
 
         {
-            <div className="grid w-full items-start gap-10 rounded-lg border pt-0 p-6">
+            <div className=" w-full items-start gap-10 rounded-lg border pt-0 p-6">
                 <Tabs defaultValue="stdout" className="relative mt-6 w-full" value={activeTab}>
                     <TabsList className="w-full justify-start rounded-none border-b bg-transparent p-0">
                         <TabsTrigger onClick={() => handleTabClick('stdout')} value="stdout" className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">stdout</TabsTrigger>
