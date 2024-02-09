@@ -17,9 +17,10 @@ import {
 } from "@/components/ui/select"
 import { useEffect, useState } from "react";
 import { useTheme } from 'next-themes';
-import { ExecutionStatus, SubmissionResponse } from "@/app/api/submissions/route";
+
 import { cn } from "@/lib/utils";
 import { languages } from "@/config/snippets";
+import { ExecutionStatus, SubmissionResponse } from "@/config/types";
 
 interface PlaygroundProps {
     code: string;
