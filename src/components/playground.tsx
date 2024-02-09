@@ -17,48 +17,9 @@ import {
 } from "@/components/ui/select"
 import { useEffect, useState } from "react";
 import { useTheme } from 'next-themes';
-import { ExecutionResponse } from "@/app/api/executions/route";
-import { json } from "stream/consumers";
+import { ExecutionStatus, SubmissionResponse } from "@/app/api/submissions/route";
 import { cn } from "@/lib/utils";
-
-const javaCode = `public class Main {
-
-    public static void main(String[] args) {
-        System.out.println("The 5th Fibonacci number is: " + fibonacci(5));
-    }
-
-    public static int fibonacci(int n) {
-        if (n <= 1) {
-            return n;
-        }
-        return fibonacci(n - 1) + fibonacci(n - 2);
-    }
-}
-`;
-
-const pythonCode = `def fibonacci(n):
-    a, b = 0, 1
-    for _ in range(n):
-        a, b = b, a + b
-    return a
-
-print("The 5th Fibonacci number is:", fibonacci(5))
-`;
-
-type LanguageCode = {
-    [key: string]: {
-        code: string;
-    };
-};
-
-const languages: LanguageCode = {
-    "java": {
-        code: javaCode
-    },
-    "python": {
-        code: pythonCode
-    }
-}
+import { languages } from "@/config/snippets";
 
 interface PlaygroundProps {
     code: string;
@@ -71,8 +32,8 @@ const Playground = () => {
 
     const [language, setLanguage] = useState("java");
     const [code, setCode] = useState<string>(languages[language].code);
-    const [stdOut, setStdOut] = useState<string | undefined>(undefined);
-    const [stdErr, setStdErr] = useState<string | undefined>(undefined);
+    const [stdOut, setStdOut] = useState<string | null>(null);
+    const [stdErr, setStdErr] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<string | undefined>("stdout");
     const [isLoading, setIsLoading] = useState(false);
 
@@ -87,7 +48,7 @@ const Playground = () => {
         try {
             setIsLoading(true);
 
-            const response = await fetch('/api/executions', {
+            const response = await fetch('api/submissions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -102,16 +63,21 @@ const Playground = () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const data: ExecutionResponse = await response.json();
-            if ((data.execution?.exit_code ?? 0) > 0) {
-                setActiveTab("stderr")
+            const data: SubmissionResponse = await response.json();
+
+            console.log(data)
+
+            if (data.status === ExecutionStatus.FAILED || data.error !== "") {
+                setActiveTab("stderr");
             } else {
-                setActiveTab("stdout")
+                setActiveTab("stdout");
             }
 
-            setStdOut(data.execution?.std_out)
-            setStdErr(data.execution?.error || data.execution?.std_err)
-
+            if (data.executions && data.executions.length > 0) {
+                const execution = data.executions[0]
+                setStdOut(execution?.std_out)
+                setStdErr(data?.error || execution?.std_err)
+            }
 
         } catch (error) {
             console.error('Error during API call:', error);
@@ -167,15 +133,15 @@ const Playground = () => {
                     <SelectContent>
                         <SelectGroup>
                             <SelectLabel>Languages</SelectLabel>
-                            {Object.keys(languages).map((language) => (
-                                <SelectItem key={language} value={language}>{language.charAt(0).toUpperCase() + language.slice(1)}</SelectItem>
+                            {Object.entries(languages).map(([languageId, { name }]) => (
+                                <SelectItem key={languageId} value={languageId}>{name}</SelectItem>
                             ))}
                         </SelectGroup>
                     </SelectContent>
                 </Select>
                 <Button className="flex w-[180px]" onClick={makeApiCall}>
-                {isLoading ? <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> : ''}
-Execute</Button>
+                    {isLoading ? <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> : ''}
+                    Execute</Button>
 
             </div>
             <div className=" h-[32vh]">
@@ -198,28 +164,28 @@ Execute</Button>
             </div>
         </div>
 
-            <div className={cn("w-full items-start gap-10 rounded-lg border pt-0 p-6", (stdOut || stdErr) ? "" : "hidden")}>
-                <Tabs defaultValue="stdout" className="relative mt-6 w-full" value={activeTab}>
-                    <TabsList className="w-full justify-start rounded-none border-b bg-transparent p-0">
-                        <TabsTrigger onClick={() => handleTabClick('stdout')} value="stdout" className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">stdout</TabsTrigger>
-                        <TabsTrigger onClick={() => handleTabClick('stderr')} value="stderr" className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">stderr</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="stdout" className="">
-                        <div className="p-4">
-                            <pre className="text-left"><code>
-                                {stdOut}
-                            </code></pre>
-                        </div>
-                    </TabsContent>
-                    <TabsContent value="stderr" className="relative [&_h3.font-heading]:text-base [&_h3.font-heading]:font-semibold">
-                        <div className="p-4">
-                            <pre className="text-left"><code>
-                                {stdErr}
-                            </code></pre>
-                        </div>
-                    </TabsContent>
-                </Tabs>
-            </div>
+        <div className={cn("w-full items-start gap-10 rounded-lg border pt-0 p-6", (stdOut || stdErr) ? "" : "hidden")}>
+            <Tabs defaultValue="stdout" className="relative mt-6 w-full" value={activeTab}>
+                <TabsList className="w-full justify-start rounded-none border-b bg-transparent p-0">
+                    <TabsTrigger onClick={() => handleTabClick('stdout')} value="stdout" className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">stdout</TabsTrigger>
+                    <TabsTrigger onClick={() => handleTabClick('stderr')} value="stderr" className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">stderr</TabsTrigger>
+                </TabsList>
+                <TabsContent value="stdout" className="">
+                    <div className="p-4">
+                        <pre className="text-left"><code>
+                            {stdOut}
+                        </code></pre>
+                    </div>
+                </TabsContent>
+                <TabsContent value="stderr" className="relative [&_h3.font-heading]:text-base [&_h3.font-heading]:font-semibold">
+                    <div className="p-4">
+                        <pre className="text-left"><code>
+                            {stdErr}
+                        </code></pre>
+                    </div>
+                </TabsContent>
+            </Tabs>
+        </div>
     </>
     )
 }
