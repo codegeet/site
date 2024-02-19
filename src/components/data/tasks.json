@@ -1,0 +1,52 @@
+[
+  {
+    "id": "merge-strings-alternately",
+    "number": 1768,
+    "title": "1768. Merge Strings Alternately",
+    "status": "in progress",
+    "difficulty": "easy"
+  },
+  {
+    "id": "greatest-common-divisor-of-strings",
+    "number": 1071,
+    "title": "1071. Greatest Common Divisor of Strings",
+    "status": "done",
+    "difficulty": "easy"
+  },
+  {
+    "id": "kids-with-the-greatest-number-of-candies",
+    "number": 1431,
+    "title": "1431. Kids With the Greatest Number of Candies",
+    "status": "todo",
+    "difficulty": "easy"
+  },
+  {
+    "id": "can-place-flowers",
+    "number": 605,
+    "title": "605. Can Place Flowers",
+    "status": "todo",
+    "difficulty": "easy"
+  },
+  {
+    "id": "reverse-vowels-of-a-string",
+    "number": 345,
+    "title": "345. Reverse Vowels of a String",
+    "status": "todo",
+    "difficulty": "easy"
+  },
+  {
+    "id": "reverse-words-in-a-string",
+    "number": 151,
+    "title": "151. Reverse Words in a String",
+    "status": "done",
+    "difficulty": "medium"
+  },
+  {
+    "id": "product-of-array-except-self",
+    "number": 238,
+    "title": "238. Product of Array Except Self",
+    "status": "todo",
+    "difficulty": "medium"
+  }
+  
+]
