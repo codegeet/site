@@ -6,7 +6,9 @@ export type Problem = {
     description: string;
     difficulty: string;
     status: string;
-    snippets: Snippet[]
+    metadata: Metadata;
+    snippets: Snippet[];
+    cases: Case[];
 }
 
 export type Snippet = {
@@ -14,14 +16,22 @@ export type Snippet = {
     language: string;
 }
 
+export type Case = {
+    input: string;
+}
+
+export type Metadata = {
+    name: string;
+    params: { name: string }[]
+}
+
 export const languages = [
     {
-      name: "java",
-      label: "Java"
+        name: "java",
+        label: "Java"
     },
     {
-      name: "kotlin",
-      label: "Kotlin"
+        name: "kotlin",
+        label: "Kotlin"
     }
-  ]
-  
+]

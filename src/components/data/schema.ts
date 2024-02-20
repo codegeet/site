@@ -10,4 +10,11 @@ export const taskSchema = z.object({
   difficulty: z.string(),
 })
 
+let me: [string, boolean]
+me = ["st", true]
+
+
+let you: (string | boolean) []
+you  = ["st", true]
+
 export type Task = z.infer<typeof taskSchema>
