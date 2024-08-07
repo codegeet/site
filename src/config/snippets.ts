@@ -86,26 +86,25 @@ fun binarySearch(arr: IntArray, target: Int): Int {
 }` },
   python: {
     name: "Python", code: `arr = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
-  target = 11
-  
-  def binary_search(arr, target):
-      left, right = 0, len(arr) - 1
-  
-      while left <= right:
-          mid = (left + right) // 2
-  
-          if arr[mid] == target:
-              return mid
-          elif arr[mid] < target:
-              left = mid + 1
-          else:
-              right = mid - 1
-  
-      return -1  # Target not found
-  
+target = 11
+      
+def binary_search(arr, target):
+  left, right = 0, len(arr) - 1
+      
+  while left <= right:
+    mid = (left + right) // 2
+      
+    if arr[mid] == target:
+      return mid
+    elif arr[mid] < target:
+      left = mid + 1
+    else:
+      right = mid - 1
+      
+    return -1  # Target not found
+      
   result = binary_search(arr, target)
-  print(f"Index of {target} is {result}")  
-` },
+print(f"Index of {target} is {result}") ` },
   ts: {
     name: "Type Script", code: `const arr: number[] = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
   const target: number = 11;
