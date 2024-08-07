@@ -193,9 +193,9 @@ const Playground = () => {
                     Execute</Button>
 
             </div>
-            <div className=" h-[32vh]">
+            <div className=" h-[60vh]">
                 <Editor
-                    height="32vh"
+                    height="60vh"
                     defaultLanguage="javascript"
                     defaultValue={languages[language].code}
 
@@ -213,8 +213,8 @@ const Playground = () => {
             </div>
         </div>
 
-        <div className={cn("w-full items-start gap-10 rounded-lg border pt-0 p-4", (stdOut || stdErr) ? "" : "hidden")}>
-            <Tabs defaultValue="stdout" className="relative mt-6 w-full" value={activeTab}>
+        <div className={cn("w-full items-start gap-10 rounded-lg border pt-0 px-4", (stdOut || stdErr) ? "" : "hidden")}>
+            <Tabs defaultValue="stdout" className="relative mt-2 w-full" value={activeTab}>
                 <TabsList className="w-full justify-start rounded-none border-b bg-transparent p-0">
                     <TabsTrigger onClick={() => handleTabClick('stdout')} value="stdout" className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">stdout</TabsTrigger>
                     <TabsTrigger onClick={() => handleTabClick('stderr')} value="stderr" className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">stderr</TabsTrigger>

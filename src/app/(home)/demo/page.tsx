@@ -14,9 +14,7 @@ export default function DemoPage() {
               Demo
             </span>
         </h2>
-        <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-md sm:leading-7">
-          Here you can try Codegeet platform live
-        </p>
+        
           <Playground />
       </div>
     </section>
