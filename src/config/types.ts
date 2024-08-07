@@ -1,12 +1,14 @@
 export interface ExecutionRequest {
-    code: string;
-    language: string;
+  code: string;
+  language: string;
 }
 
 export enum ExecutionStatus {
-  NOT_STARTED = "NOT_STARTED",
-  COMPLETED = "COMPLETED",
-  FAILED = "FAILED"
+  SUCCESS = "SUCCESS",
+  COMPILATION_ERROR = "COMPILATION_ERROR",
+  INVOCATION_ERROR = "INVOCATION_ERROR",
+  INTERNAL_ERROR = "INTERNAL_ERROR",
+  TIMEOUT = "TIMEOUT"
 }
 
 export type ExecutionOutput = {
