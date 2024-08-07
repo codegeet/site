@@ -103,7 +103,7 @@ def binary_search(arr, target):
       
     return -1  # Target not found
       
-  result = binary_search(arr, target)
+result = binary_search(arr, target)
 print(f"Index of {target} is {result}") ` },
   ts: {
     name: "Type Script", code: `const arr: number[] = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
