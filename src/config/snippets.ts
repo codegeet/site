@@ -1,7 +1,7 @@
 
-export const languages: { [languageId: string]: { name: string; code: string } } = {
+export const languages: { [languageId: string]: { name: string; code: string; syntax: string; } } = {
   java: {
-    name: "Java", code: `public class Main {
+    name: "Java", syntax: "java", code: `public class Main {
 
     public static void main(String[] args) {
         int[] arr = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 };
@@ -31,7 +31,7 @@ export const languages: { [languageId: string]: { name: string; code: string } }
 }
 ` },
   js: {
-    name: "Java Script", code: `
+    name: "Java Script", syntax: "javascript", code: `
   const arr = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
   const target = 11;
   
@@ -59,7 +59,7 @@ export const languages: { [languageId: string]: { name: string; code: string } }
   console.log(\`Index of \${target} is\`, result);
   `},
   kotlin: {
-    name: "Kotlin", code: `fun main() {
+    name: "Kotlin", syntax: "kotlin", code: `fun main() {
     val arr = intArrayOf(2, 3, 5, 7, 11, 13, 17, 19, 23, 29)
     val target = 11
 
@@ -85,7 +85,7 @@ fun binarySearch(arr: IntArray, target: Int): Int {
     return -1
 }` },
   python: {
-    name: "Python", code: `arr = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+    name: "Python", syntax: "python", code: `arr = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
 target = 11
       
 def binary_search(arr, target):
@@ -106,7 +106,7 @@ def binary_search(arr, target):
 result = binary_search(arr, target)
 print(f"Index of {target} is {result}") ` },
   ts: {
-    name: "Type Script", code: `const arr: number[] = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
+    name: "Type Script",  syntax: "typescript", code: `const arr: number[] = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
   const target: number = 11;
   
   function binarySearch(arr: number[], target: number): number {
@@ -132,7 +132,7 @@ print(f"Index of {target} is {result}") ` },
   
   console.log(\`Index of \${target} is\`, result);` },
   csharp: {
-    name: "C#", code: `using System;
+    name: "C#", syntax: "csharp", code: `using System;
 
   class Program
   {
@@ -164,7 +164,7 @@ print(f"Index of {target} is {result}") ` },
       }
   }` },
   onescript: {
-    name: "One Script", code: `Функция БинарныйПоиск(МассивЧисел, Цель)
+    name: "One Script",  syntax: "onescript", code: `Функция БинарныйПоиск(МассивЧисел, Цель)
     Левый = 0;
     Правый = МассивЧисел.Количество() - 1;
 
